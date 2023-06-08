@@ -50,10 +50,7 @@ struct ContentView: View {
                         Button {
                             flagTapped(number)
                         } label: {
-                            Image(countries[number])
-                                .renderingMode(.original)
-                                .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 0)))
-                                .shadow(radius: 5)
+                            FlagImage(imageName: countries[number])
                         }
                     }
                 }
@@ -103,6 +100,30 @@ struct ContentView: View {
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+    }
+}
+
+struct FlagImage: View {
+    var imageName: String
+    var body: some View {
+        Image(imageName)
+            .renderingMode(.original)
+            .clipShape(RoundedRectangle(cornerSize: .init(width: 10, height: 0)))
+            .shadow(radius: 5)
+    }
+}
+
+struct LargeBlueTitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundColor(.blue)
+    }
+}
+
+extension View {
+    func largeBlueTitle() -> some View {
+        modifier(LargeBlueTitle())
     }
 }
 
